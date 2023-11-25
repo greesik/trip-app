@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Trip } from "./backend/backend";
+import { Box, ChakraProvider } from "@chakra-ui/react";
+import { TripCard } from "./components/TripCard";
 
-function App() {
+const App = () => {
+  const [trips, setTrips] = useState<Trip[] | null>(null);
+
+  useEffect(() => {
+    const fetchTrips = async () => {
+      try {
+        const response = await axios.get<Trip[]>("http://localhost:3000/trips");
+        setTrips(response.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchTrips();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Box
+        display={"flex"}
+        flexWrap={"wrap"}
+        justifyContent={"space-around"}
+        gap={"2rem"}
+        bgColor={"lightcoral"}
+        paddingTop={"3rem"}
+      >
+        {trips &&
+          trips.map((trip) => {
+            return <TripCard {...trip} />;
+          })}
+      </Box>
+    </ChakraProvider>
   );
-}
+};
 
 export default App;
