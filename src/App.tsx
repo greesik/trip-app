@@ -27,12 +27,12 @@ const App = () => {
         flexWrap={"wrap"}
         justifyContent={"space-around"}
         gap={"2rem"}
-        bgColor={"lightcoral"}
+        bgColor={"#F6F6F7"}
         paddingTop={"3rem"}
       >
         {trips &&
           trips.map((trip) => {
-            return <TripCard {...trip} />;
+            return <TripCard {...trip} key={trip.id} />;
           })}
       </Box>
     </ChakraProvider>
