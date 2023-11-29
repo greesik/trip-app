@@ -1,17 +1,26 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Trip } from "./backend/backend";
 import { Box, ChakraProvider } from "@chakra-ui/react";
-import { TripCard } from "./components/TripCard";
+import { TripCard } from "./TripCard";
+import { useEffect, useState } from "react";
+import { Trip } from "../backend/backendTypes";
+import axios from "axios";
 
-const App = () => {
+export const TripsList = () => {
   const [trips, setTrips] = useState<Trip[] | null>(null);
 
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get<Trip[]>("http://localhost:3000/trips");
-        setTrips(response.data);
+        let response;
+        const cachedResponse = localStorage.getItem("trips");
+
+        if (cachedResponse) {
+          response = JSON.parse(cachedResponse);
+          setTrips(response);
+        } else {
+          response = await axios.get<Trip[]>("http://localhost:3001/trips");
+          localStorage.setItem("trips", JSON.stringify(response.data));
+          setTrips(response.data);
+        }
       } catch (error) {
         console.error("Error:", error);
       }
@@ -38,5 +47,3 @@ const App = () => {
     </ChakraProvider>
   );
 };
-
-export default App;

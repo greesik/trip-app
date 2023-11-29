@@ -1,6 +1,7 @@
 import { Box, Button, Text } from "@chakra-ui/react";
-import { Trip } from "../backend/backend";
+import { Trip } from "../backend/backendTypes";
 import StarRatings from "react-star-ratings";
+import { Link } from "react-router-dom";
 
 const CardHeader = ({
   title,
@@ -104,7 +105,7 @@ export const TripCard = ({
       paddingTop={"3rem"}
     >
       <CardHeader title={title} countries={countries} days={days} />
-      <Button color={"#FFF"} bgColor={"#3267C3"}>
+      <Button as={Link} to="/trip" color={"#FFF"} bgColor={"#3267C3"}>
         Learn more
       </Button>
       <EmissionBox co2kilograms={co2kilograms} />

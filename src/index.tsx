@@ -1,15 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { TripsList } from "./components/TripsList";
+import { TripDetails } from "./components/tripDetails/TripDetails";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <TripsList />,
+  },
+  {
+    path: "/trip",
+    element: <TripDetails />,
+  },
+]);
+
+const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
