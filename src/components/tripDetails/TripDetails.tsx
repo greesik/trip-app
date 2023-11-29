@@ -12,6 +12,7 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export const TripDetails = () => {
   const [trip, setTrip] = useState<Trip | null>(null);
@@ -45,6 +46,12 @@ export const TripDetails = () => {
       <ChakraProvider>
         <Box minH={"100vh"} w={"100vw"} bgColor={"#F6F6F7"}>
           <Container maxW={"90%"}>
+            <Box paddingTop={"2rem"} textDecoration={"underline"}>
+              <Link to="/" color={"#75848B"}>
+                Go back
+              </Link>
+            </Box>
+
             <Box width={"100%"} padding={"2rem 0"}>
               <Heading>{trip.title}</Heading>
               <Heading size="xs" color={"#75848B"}>
